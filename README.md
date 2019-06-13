@@ -1,26 +1,22 @@
-# Minikube walkthrough
+# Flask with nginx and gunicorn on minikube - walkthrough
 
-Publish image:
+This repository is my own. If you want to copy what I did, you should change the
+docker hub account, from skipperkongen to your own.
 
-```
-pipenv lock -r > requirements.txt
-docker build -t skipperkongen/flask-walkthrough .
-docker push skipperkongen/flask-walkthrough
-```
-
-Run in minikube:
+Build image (remember `docker login`):
 
 ```
-kubectl create deployment flask-walkthrough --image=skipperkongen/flask-walkthrough
-kubectl expose deployment flask-walkthrough --type=LoadBalancer --port=80
+./build.sh
 ```
 
-Attempt 2:
+Run locally in docker:
 
 ```
-kubectl run flask-walkthrough --image=docker.io/skipperkongen/flask-walkthrough:latest --port=80
-kubectl expose deployment flask-walkthrough --type=LoadBalancer --port=80
-kubectl get svc
-curl $(minikube service flask-walkthrough --url)
-kubectl delete deployment,service flask-walkthrough
+./run-docker.sh
+```
+
+Run locally in minikube (remember `minikube start`):
+
+```
+./run-minikube.sh
 ```
