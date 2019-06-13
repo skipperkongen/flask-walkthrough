@@ -1,6 +1,7 @@
 #!/bin/sh
+# https://ianlondon.github.io/blog/deploy-flask-docker-nginx/
 echo 'Testing'
-pipenv lock -r > app/requirements.txt
+pipenv lock -r > requirements.txt
 docker build -t mytest .
-rm app/requirements.txt
-docker run -p 8000:8000 mytest
+rm requirements.txt
+docker run -p 80:80 mytest

@@ -1,11 +1,12 @@
-FROM python:3.7.3-alpine3.8
+FROM tiangolo/uwsgi-nginx-flask:python3.6-alpine3.7
 
-EXPOSE 8000
+COPY requirements.txt /tmp/
+
+RUN pip install -U pip
+RUN pip install -r /tmp/requirements.txt
 
 COPY ./app /app
 
-WORKDIR /app
-
-RUN pip install -r requirements.txt
-
-CMD ["gunicorn", "-w 4", "-b 0.0.0.0:8000",  "main:app"]
+# set an environmental variable, MESSAGE,
+# which the app will use and display
+ENV MESSAGE "hello from Docker"
